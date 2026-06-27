@@ -14,6 +14,19 @@ export type OAuthProvider = {
   priority: number;
 } | null;
 
+const providerIcons: Record<string, string> = {
+  discord: 'fab fa-discord',
+  facebook: 'fab fa-facebook-f',
+  github: 'fab fa-github',
+  gitlab: 'fab fa-gitlab',
+  google: 'fab fa-google',
+  linkedin: 'fab fa-linkedin-in',
+};
+
+function providerIcon(name: string, icon: string): string {
+  return providerIcons[name] ?? icon;
+}
+
 /**
  * Build the OAuth authorization URL for a given provider path.
  * Appends returnTo so the server can redirect back after auth.
@@ -51,7 +64,7 @@ export default function () {
       items.add(
         name,
         <div className={`LogInButtonContainer LogInButtonContainer--${name}`}>
-          <LogInButton className={className} icon={icon} path={`/auth/${name}`}>
+          <LogInButton className={className} icon={providerIcon(name, icon)} path={`/auth/${name}`}>
             {app.translator.trans(`fof-oauth.forum.log_in.with_${name}_button`, {
               provider: app.translator.trans(`fof-oauth.forum.providers.${name}`),
             })}
