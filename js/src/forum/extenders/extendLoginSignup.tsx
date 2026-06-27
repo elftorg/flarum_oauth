@@ -42,7 +42,7 @@ export default function () {
       app.forum.attribute<OAuthProvider[]>('fof-oauth')?.filter((provider): provider is NonNullable<OAuthProvider> => provider !== null) ?? [];
 
     enabledOAuthProviders.forEach(({ name, icon, priority }) => {
-      let className = `Button FoFLogInButton LogInButton--${name}`;
+      let className = `Button Button--block FoFLogInButton LogInButton--${name}`;
 
       if (onlyIcons) {
         className += ' Button--icon';
@@ -78,6 +78,14 @@ export default function () {
 
     // @ts-ignore
     vdom.attrs.className += ' FoFLogInButtons--icons';
+  });
+
+  override('flarum/forum/components/LogInModal', 'body', function () {
+    return [<div className="Form Form--centered">{this.fields().toArray()}</div>, <LogInButtons />];
+  });
+
+  override('flarum/forum/components/SignUpModal', 'body', function () {
+    return [<div className="Form Form--centered">{this.fields().toArray()}</div>, !this.attrs.token && <LogInButtons />];
   });
 
   extend('flarum/forum/components/SignUpModal', 'fields', function (items: ItemList<unknown>) {
