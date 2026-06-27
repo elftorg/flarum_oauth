@@ -17,6 +17,10 @@
     return match ? match[1] : null;
   }
 
+  function isLinkingButton(attrs) {
+    return typeof attrs.path === 'string' && attrs.path.indexOf('linkTo=') !== -1;
+  }
+
   var app = defaultExport(flarum.reg.get('core', 'forum/app'));
   var extension = flarum.reg.get('core', 'common/extend');
   var LogInButtons = defaultExport(flarum.reg.get('core', 'forum/components/LogInButtons'));
@@ -31,7 +35,7 @@
           attrs.icon = providerIcons[providerName];
         }
 
-        if (attrs.className.indexOf('Button--block') === -1) {
+        if (!isLinkingButton(attrs) && attrs.className.indexOf('Button--block') === -1) {
           attrs.className = attrs.className.replace('Button ', 'Button Button--block ');
         }
       }
