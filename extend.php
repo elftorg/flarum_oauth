@@ -25,6 +25,7 @@ use FoF\OAuth\Events\OAuthLoginSuccessful;
 return [
     (new Extend\Frontend('forum'))
         ->js(__DIR__.'/js/dist/forum.js')
+        ->js(__DIR__.'/js/dist/forum-login-order.js')
         ->css(__DIR__.'/resources/less/forum.less')
         ->jsDirectory(__DIR__.'/js/dist/forum'),
 
