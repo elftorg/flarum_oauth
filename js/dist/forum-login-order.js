@@ -3,6 +3,20 @@
     return module && module.__esModule ? module.default : module;
   }
 
+  var providerIcons = {
+    discord: 'fab fa-discord',
+    facebook: 'fab fa-facebook-f',
+    github: 'fab fa-github',
+    gitlab: 'fab fa-gitlab',
+    google: 'fab fa-google',
+    linkedin: 'fab fa-linkedin-in',
+  };
+
+  function providerNameFromClass(className) {
+    var match = className && className.match(/LogInButton--([A-Za-z0-9_-]+)/);
+    return match ? match[1] : null;
+  }
+
   var app = defaultExport(flarum.reg.get('core', 'forum/app'));
   var extension = flarum.reg.get('core', 'common/extend');
   var LogInButtons = defaultExport(flarum.reg.get('core', 'forum/components/LogInButtons'));
@@ -10,8 +24,16 @@
 
   app.initializers.add('fof/oauth-login-order', function () {
     extension.extend(LogInButton, 'initAttrs', function (_, attrs) {
-      if (attrs.className && attrs.className.indexOf('FoFLogInButton') !== -1 && attrs.className.indexOf('Button--block') === -1) {
-        attrs.className = attrs.className.replace('Button ', 'Button Button--block ');
+      if (attrs.className && attrs.className.indexOf('FoFLogInButton') !== -1) {
+        var providerName = providerNameFromClass(attrs.className);
+
+        if (providerName && providerIcons[providerName]) {
+          attrs.icon = providerIcons[providerName];
+        }
+
+        if (attrs.className.indexOf('Button--block') === -1) {
+          attrs.className = attrs.className.replace('Button ', 'Button Button--block ');
+        }
       }
     });
 
