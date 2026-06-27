@@ -1,6 +1,6 @@
 (function () {
   function defaultExport(module) {
-    return module && module.__EsModule ? module.default : module;
+    return module && module.__esModule ? module.default : module;
   }
 
   var app = defaultExport(flarum.reg.get('core', 'forum/app'));
