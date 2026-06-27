@@ -1,9 +1,9 @@
 (function () {
   function defaultExport(module) {
-    return module && module.__esModule ? module.default : module;
+    return module && module.__EsModule ? module.default : module;
   }
 
-  var app = flarum.reg.get('core', 'forum/app');
+  var app = defaultExport(flarum.reg.get('core', 'forum/app'));
   var extension = flarum.reg.get('core', 'common/extend');
   var LogInButtons = defaultExport(flarum.reg.get('core', 'forum/components/LogInButtons'));
   var LogInButton = defaultExport(flarum.reg.get('core', 'forum/components/LogInButton'));
